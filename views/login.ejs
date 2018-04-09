@@ -14,7 +14,7 @@
                         </div>
                     <% } %>
                     <div class="panel-body">
-                        <form role="form" action="login" method="post">
+                        <form id="frm_login" role="form" action="login" method="post">
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Usuario" name="user" type="text" autofocus>
@@ -23,7 +23,7 @@
                                     <input class="form-control" placeholder="Contraseña" name="password" type="password" value="">
                                 </div>
                                                                 
-                                <input type="submit" class="btn btn-lg btn-success btn-block" value="Iniciar Sesión">
+                                <input id="btn_login" type="submit" class="btn btn-lg btn-success btn-block" value="Iniciar Sesión">
                             </fieldset>
                         </form>
                     </div>
@@ -32,5 +32,6 @@
         </div>
     </div>
 
-    <% include partials/footer %>
+
+    <%- include('partials/footer', {addScripts: true, scripts: ['/javascripts/login.js']}); %>
     

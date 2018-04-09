@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
+var Cliente = require('../client/client.js')
+var cliente = new Cliente();
+var crypto = require('crypto');
+
+
 /* GET login page. */
 router.get('/', function(req, res, next) {
 
@@ -8,34 +13,51 @@ router.get('/', function(req, res, next) {
   	res.render('login', { title: 'PRM', msj: false });
 })
 
-var userObjt = {
-	user: 'jsmorales',
-	password: '12345'
-}
+//post login app
 
 router.post('/',  function(req, res, next) {
-	//mostrando los valores del formulario
-	//console.log(req.body)
-
+	
 	var userPost = req.body;
 
-	//console.log(userPost)
-	//console.log(userObjt)
+	//encriptar md5 pass "e10adc3949ba59abbe56e057f20f883e"
 
-	/**/
-	if ( (userPost.user == userObjt.user) && (userPost.password == userObjt.password) ) {
-		
-		//crea el user en la session
-		req.session.user = userPost;
-
-		console.log(req.session);
-
-		//res.redirect('/?alert=true');
-		res.redirect('timeline');
-
-	} else {
-		res.render('login', { title: 'PRM', msj: 'Inicio de sesion inválido.' });
+	var userReq = {
+	  "username":userPost.user,
+	  "password":crypto.createHash('md5').update(userPost.password).digest("hex")
 	}
+
+	cliente.post("/authentication",userReq, (respuesta)=>{
+	  	
+	  	console.log(respuesta);
+
+	  	var bodyRes = JSON.parse(respuesta.body);
+	  	
+	  	var status = respuesta.status;
+	  	var success = bodyRes.success;
+	  	var message = bodyRes.message;			 
+
+	  	//console.log(status+'--'+success+'--'+message);
+	  	
+
+	  	if ( (success == true) && (status == 200) ) {
+
+	  		delete userReq.password
+
+	  		userReq.token = bodyRes.result.token;
+	  		userReq.employee = bodyRes.result.employee;
+		
+			//crea el user en la session
+			req.session.user = userReq;
+
+			console.log(req.session);
+
+			//res.redirect('/?alert=true');
+			res.redirect('timeline');
+
+		} else {
+			res.render('login', { title: 'PRM', msj: message });
+		}
+	})
 
 })
 

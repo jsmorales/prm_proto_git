@@ -2,6 +2,12 @@ $(function(){
   
   console.log("Listo timeline")
 
+  var clienteUI = new helperClientUI($("#tokenUserId").val());
+
+  console.log(clienteUI)
+
+  clienteUI.get('/availableAgents');
+
   // DOM element where the Timeline will be attached
   var now = moment().minutes(0).seconds(0).milliseconds(0);
   var groupCount = 6;

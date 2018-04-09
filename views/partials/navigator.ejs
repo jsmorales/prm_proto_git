@@ -69,10 +69,10 @@
                 <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> <%= user.user%></a>
+                <li><a href="#"><i class="fa fa-user fa-fw"></i> <%= user.employee.firstName+" "+user.employee.lastName%></a>
                 </li>
-                <!--<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                </li>-->
+                <li><a href="#"><i class="fa fa-suitcase fa-fw"></i> <%= user.employee.position%></a>
+                </li><!---->
                 <li class="divider"></li>
                 <li><a href="/login/out"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
                 </li>

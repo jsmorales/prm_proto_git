@@ -9,7 +9,7 @@
 			<!-- content goes here-->
 				
 				<h1>Timeline - PRM</h1>
-
+				
 				<div id="visualization"></div>
 
 			<!-- content goes here-->
@@ -18,4 +18,4 @@
 
 	</div>
 
-<% include partials/footer %>
+<%- include('partials/footer', {addScripts: true, scripts: ['/client/helperClientUI.js','/javascripts/timeline_example.js']}); %>

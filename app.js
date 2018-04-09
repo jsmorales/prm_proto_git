@@ -40,6 +40,7 @@ app.use('/sd-admin-2',express.static(path.join(__dirname, 'node_modules/sb-admin
 app.use('/sd-admin-2/dist',express.static(path.join(__dirname, 'node_modules/sb-admin-2/dist')));
 app.use('/sd-admin-2/data',express.static(path.join(__dirname, 'node_modules/sb-admin-2/data')));
 
+app.use('/client',express.static(path.join(__dirname, 'client')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
